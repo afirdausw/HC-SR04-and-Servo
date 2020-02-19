@@ -1,6 +1,6 @@
 # Deteksi jarak dengan sensor HC-SR04 dan Servo
 
-## Tugas skripsi
+## Project ...
   Deskripsi ...
   
 ### Requirement
@@ -12,6 +12,7 @@
   - Copy library to C:\Users\[name]\Documents\Arduino\libraries
   - Run code .ino
   - Compile and upload to Board
+
 
   ** There is 3 file code
   - check_compass   = for checking only compass
