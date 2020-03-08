@@ -9,7 +9,8 @@
   - Library 
 
 ### First use
-  - Copy library to C:\Users\[name]\Documents\Arduino\libraries
+  - Copy library to C:\Users\(name)\Documents\Arduino\libraries\
+  - Copy project folder to C:\Users\(name)\Documents\Arduino\
   - Run code .ino
   - Compile and upload to Board
 
