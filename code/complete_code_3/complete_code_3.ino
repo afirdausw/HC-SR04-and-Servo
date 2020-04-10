@@ -30,19 +30,19 @@ Servo R1, L2;
 #define echoPin5 12
 #define trigPin5 5
 
-int maximumRange = 6;
+int maximumRange = 7;
 long duration, distance;
 
-int maximumRange2 = 6;
+int maximumRange2 = 7;
 long duration2, distance2;
 
-int maximumRange3 = 6;
+int maximumRange3 = 7;
 long duration3, distance3;
 
-int maximumRange4 = 5;
+int maximumRange4 = 8;
 long duration4, distance4;
 
-int maximumRange5 = 5;
+int maximumRange5 = 8;
 long duration5, distance5;
 
 // 1 Kanan, 2 Kiri
@@ -120,58 +120,86 @@ void loop() {
     wheel_detach();
     delay(500);
   }
-  else if (distance4 <= maximumRange4 && distance >= maximumRange) {
+  else if (distance2 <= maximumRange2 && distance <= maximumRange && distance3 > maximumRange3) {
+    wheel_detach();
+    kiri();
+  }
+  else if (distance3 <= maximumRange3 && distance <= maximumRange && distance2 > maximumRange2) {
+    wheel_detach();
+    kanan();
+  }
+  else if (distance4 <= maximumRange4 && distance >= maximumRange && distance5 >= maximumRange5) {
     wheel_detach();
     kiriDikit();
   }
-  else if (distance5 <= maximumRange5 && distance >= maximumRange) {
+  else if (distance5 <= maximumRange5 && distance >= maximumRange && distance4 >= maximumRange4) {
     wheel_detach();
     kananDikit();
   }
-  else if (distance <= maximumRange && distance4 >= maximumRange4 && distance5 >= maximumRange5) {
-    wheel_detach();
-    kanan();
-    maju();
-    delay(2000);
-    wheel_detach();
-    kiri();
-    maju();
-    delay(2000);
-    kiri();
-    maju();
-    delay(2000);
-    wheel_detach();
-    kanan();
+  else if (distance <= maximumRange && distance4 <= maximumRange4 && distance5 <= maximumRange5 && distance2 >= maximumRange2 && distance3 >= maximumRange3) {
+    if (belok == 1){
+      Serial.println("\nNilai Ganjil, Belok Kanan\n\n");
+      
+      kanan();
+      maju();
+      delay(2000);
+      wheel_detach();
+      kanan();
+      maju();
+      
+      belok = 2;
+    }
+    else {
+      Serial.println("\nNilai Genap, Belok Kiri\n\n");
+      kiri();
+      maju();
+      delay(2000);
+      wheel_detach();
+      kiri();
+      maju();
+      
+      belok = 1;
+    }
   }
-  else if (distance4 <= maximumRange4 && distance <= maximumRange && distance5 >= maximumRange5) {
+  else if (distance4 <= maximumRange4 && distance <= maximumRange && distance5 >= maximumRange5 && distance2 >= maximumRange2 && distance3 >= maximumRange3) {
     wheel_detach();
     kiri();
     maju();
-    delay(2000);
+    delay(1100);
     wheel_detach();
     kanan();
     maju();
-    delay(2000);
+    delay(2400);
     kanan();
     maju();
-    delay(2000);
+    delay(1100);
     wheel_detach();
-    kiri();
+    
+    R1.attach(R_PIN1);
+    L2.attach(L_PIN2);
+    R1.write(0);
+    L2.write(0);
+    delay(700);
   }
-  else if (distance5 <= maximumRange5 && distance <= maximumRange && distance4 >= maximumRange4) {
+  else if (distance5 <= maximumRange5 && distance <= maximumRange && distance4 >= maximumRange4 && distance2 >= maximumRange2 && distance3 >= maximumRange3) {
     wheel_detach();
     kanan();
     maju();
-    delay(2000);
+    delay(1100);
     wheel_detach();
     kiri();
     maju();
-    delay(2000);
+    delay(2400);
     kiri();
     maju();
-    delay(2000);
+    delay(1100);
     wheel_detach();
-    kanan();
+    
+    R1.attach(R_PIN1);
+    L2.attach(L_PIN2);
+    R1.write(180);
+    L2.write(180);
+    delay(700);
   }
   else if (distance >= maximumRange) {
     maju();
@@ -183,14 +211,6 @@ void loop() {
     if (distance <= maximumRange && distance2 <= maximumRange2 && distance3 <= maximumRange3) {
       balik();
     }
-    else if (distance2 <= maximumRange2 && distance <= maximumRange) {
-      wheel_detach();
-      kiri();
-    }
-    else if (distance3 <= maximumRange3 && distance <= maximumRange) {
-      wheel_detach();
-      kanan();
-    }
     else {
       if (belok == 1){
         kanan();
@@ -199,7 +219,8 @@ void loop() {
         wheel_detach();
         kanan();
         maju();
-
+        
+        Serial.println("Nilai Ganjil, Belok Kanan");
         belok = 2;
       }
       else {
@@ -209,7 +230,8 @@ void loop() {
         wheel_detach();
         kiri();
         maju();
-
+        
+        Serial.println("Nilai Genap, Belok Kiri");
         belok = 1;
       }
     }
